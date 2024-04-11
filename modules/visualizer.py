@@ -12,7 +12,7 @@ from imblearn.over_sampling import SMOTE
 from sklearn.tree import export_graphviz
 from sklearn.manifold import TSNE
 import umap
-import utils
+import modules.utils
 
 class Visualizer:
     def __init__(self, original_dataframe, target_variable, n_samples, feature_names):
