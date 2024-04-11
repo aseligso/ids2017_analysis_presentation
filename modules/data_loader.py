@@ -105,7 +105,6 @@ class DataLoader:
         df_numeric_imputed = pd.DataFrame(imputer.fit_transform(df_numeric), columns=df_numeric.columns)
         df_for_preprocessing[df_numeric.columns] = df_numeric_imputed
 
-
         self.X = df_for_preprocessing.drop(columns=[self.target_variable]).select_dtypes(include=[np.number])
         self.y = df_for_preprocessing[self.target_variable]
 
