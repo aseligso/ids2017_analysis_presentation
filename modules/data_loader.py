@@ -62,18 +62,15 @@ class DataLoader:
     
     def impute_dataframe(self, dataframe, include_categorical):
         df_for_imputation = dataframe.copy(deep=True)
-        # Numeric columns
         numeric_cols = df_for_imputation.select_dtypes(include=[np.number]).columns
         numeric_imputer = SimpleImputer(strategy='mean')
         df_for_imputation[numeric_cols] = numeric_imputer.fit_transform(df_for_imputation[numeric_cols])
 
         if include_categorical:
-            # Categorical columns
             categorical_cols = df_for_imputation.select_dtypes(exclude=[np.number]).columns
             categorical_imputer = SimpleImputer(strategy='most_frequent')
             df_for_imputation[categorical_cols] = categorical_imputer.fit_transform(df_for_imputation[categorical_cols])
         else:
-            # Drop categorical columns
             df_for_imputation = df_for_imputation.select_dtypes(include=[np.number])
 
         return df_for_imputation
@@ -88,7 +85,7 @@ class DataLoader:
                 sampled_df_list.append(group)
             else:
                 sample_size = int(np.rint(self.n_samples * len(group) / len(self.df)))
-                sample_size = max(min_samples_per_class, sample_size)  # Ensure at least min_samples_per_class
+                sample_size = max(min_samples_per_class, sample_size)
                 sampled_group = group.sample(n=sample_size, random_state=42)
                 sampled_df_list.append(sampled_group)
         

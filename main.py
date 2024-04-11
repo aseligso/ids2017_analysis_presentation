@@ -2,7 +2,7 @@ import argparse
 from modules.data_loader import DataLoader
 from modules.model_trainer import ModelTrainer
 from modules.visualizer import Visualizer
-import modules.utils  # Import the utils module for saving functionalities
+import modules.utils
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Model Evaluation Script")
