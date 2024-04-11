@@ -54,7 +54,7 @@ class Visualizer:
         tsne = TSNE(n_components=2, perplexity=30.0, random_state=42)
         tsne_results = tsne.fit_transform(self.original_dataframe.select_dtypes(include=[np.number]).drop(columns=[self.target_variable]))
 
-        fig, ax = plt.subplots(figsize=(10, 8))  # Create a new figure and axes
+        fig, ax = plt.subplots(figsize=(10, 8)) 
         scatter = ax.scatter(tsne_results[:, 0], tsne_results[:, 1], c=self.original_dataframe[self.target_variable], cmap='viridis', alpha=0.6)
         plt.colorbar(scatter, label='Classes')
         plt.title('t-SNE Visualization')
@@ -62,7 +62,7 @@ class Visualizer:
         plt.ylabel('t-SNE Component 2')
         plt.show()
 
-        self.tsne_plot = fig  # Store the figure object
+        self.tsne_plot = fig 
         return fig
 
     def visualize_with_umap(self, n_samples):
@@ -70,7 +70,7 @@ class Visualizer:
         reducer = umap.UMAP(n_neighbors=15, min_dist=0.1, random_state=42)
         embedding = reducer.fit_transform(self.original_dataframe.select_dtypes(include=[np.number]).drop(columns=[self.target_variable]))
 
-        fig, ax = plt.subplots(figsize=(10, 8))  # Create a new figure and axes
+        fig, ax = plt.subplots(figsize=(10, 8))
         scatter = ax.scatter(embedding[:, 0], embedding[:, 1], c=self.original_dataframe[self.target_variable], cmap='viridis', alpha=0.6)
         plt.colorbar(scatter, label='Classes')
         plt.title('UMAP Visualization')
@@ -78,7 +78,7 @@ class Visualizer:
         plt.ylabel('UMAP Component 2')
         plt.show()
 
-        self.umap_plot = fig  # Store the figure object
+        self.umap_plot = fig 
         return fig
 
     def visualize_correlations(self, n_samples):
@@ -89,31 +89,27 @@ class Visualizer:
         features_to_visualize = set()
         for i in range(len(corr_matrix.columns)):
             for j in range(i):
-                if abs(corr_matrix.iloc[i, j]) > 0.7:  # Define a threshold for high correlation
+                if abs(corr_matrix.iloc[i, j]) > 0.7: 
                     features_to_visualize.add(corr_matrix.columns[i])
                     features_to_visualize.add(corr_matrix.columns[j])
 
-        # Create a graph
         G = nx.Graph()
 
-        # Add nodes for features
         for column in features_to_visualize:
             G.add_node(column, type='feature')
 
-        # Add edges between features
         for i in range(len(corr_matrix.columns)):
             for j in range(i):
-                if abs(corr_matrix.iloc[i, j]) > 0.7:  # Define a threshold for high correlation
+                if abs(corr_matrix.iloc[i, j]) > 0.7: 
                     G.add_edge(corr_matrix.columns[i], corr_matrix.columns[j])
 
-        # Visualize the graph
-        fig, ax = plt.subplots(figsize=(14, 12))  # Create a new figure and axes
+        fig, ax = plt.subplots(figsize=(14, 12))
         pos = nx.spring_layout(G)
         nx.draw(G, pos, with_labels=True, node_size=1500, node_color='lightblue', font_size=10)
         plt.title('Network Visualization of High Correlation Features')
         plt.show()
 
-        self.correlation_plot = fig  # Store the figure object
+        self.correlation_plot = fig 
 
         return fig
 
@@ -123,26 +119,22 @@ class Visualizer:
 
         G = nx.Graph()
 
-        # Add edges between unique source and destination_ip pairs
         for _, row in self.original_dataframe.iterrows():
             source_ip = row['source_ip']
             dest_ip = row['destination_ip']
             label = row['label']
-            connection_strength = row['total_fwd_packets']  # Using Total Fwd Packets as connection strength
+            connection_strength = row['total_fwd_packets']
             if not G.has_edge(source_ip, dest_ip):
                 G.add_edge(source_ip, dest_ip, label=label, connection_strength=connection_strength)
 
-        # Create a pyvis network object
         net = Network(notebook=True, height='500px', width='100%')
 
-        # Add nodes and edges to the network
         for edge in G.edges():
             src, dst = edge
             label = "Label: " + str(G.edges[edge]['label'])
-            color = 'red' if G.edges[edge]['label'] == 1 else 'blue'  # Red for label 1, blue for label 0
+            color = 'red' if G.edges[edge]['label'] == 1 else 'blue'
             net.add_node(src, title=src, color=color)
             net.add_node(dst, title=dst, color=color)
             net.add_edge(src, dst, title=label, value=G.edges[edge]['connection_strength'], color=color)
 
-        # Save the interactive visualization to an HTML file
         net.show("network_graph.html")
