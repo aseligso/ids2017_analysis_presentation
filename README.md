@@ -31,7 +31,6 @@ This Python script evaluates machine learning models using a provided dataset. I
 
 - `--dataset_filename`: Path to the dataset file.
 - `--target_variable`: Name of the target variable in the dataset.
-- `--include_decision_tree`: Include decision tree visualization.
 - `--n_samples`: Number of samples to use for visualization (optional).
 
 ## Output
