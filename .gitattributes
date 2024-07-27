@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+Wednesday-workingHours.pcap_ISCX.csv filter=lfs diff=lfs merge=lfs -text
+Monday-WorkingHours.pcap_ISCX.csv filter=lfs diff=lfs merge=lfs -text
