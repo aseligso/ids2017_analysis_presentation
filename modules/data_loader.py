@@ -65,16 +65,23 @@ class DataLoader:
         numeric_cols = df_for_imputation.select_dtypes(include=[np.number]).columns
         numeric_imputer = SimpleImputer(strategy='mean')
         df_for_imputation[numeric_cols] = numeric_imputer.fit_transform(df_for_imputation[numeric_cols])
+        
+        print("Numeric columns imputed:", numeric_cols.tolist())
 
         if include_categorical:
             categorical_cols = df_for_imputation.select_dtypes(exclude=[np.number]).columns
-            categorical_imputer = SimpleImputer(strategy='most_frequent')
-            df_for_imputation[categorical_cols] = categorical_imputer.fit_transform(df_for_imputation[categorical_cols])
+            print("Categorical columns identified for imputation:", categorical_cols.tolist())
+            
+            if not categorical_cols.empty:
+                categorical_imputer = SimpleImputer(strategy='most_frequent')
+                df_for_imputation[categorical_cols] = categorical_imputer.fit_transform(df_for_imputation[categorical_cols])
+            else:
+                print("No categorical columns found for imputation.")
         else:
             df_for_imputation = df_for_imputation.select_dtypes(include=[np.number])
 
         return df_for_imputation
-    
+
     def apply_stratified_sampling(self):
         min_samples_per_class = 30
         

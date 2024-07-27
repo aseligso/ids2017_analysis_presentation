@@ -2,7 +2,7 @@ import argparse
 from modules.data_loader import DataLoader
 from modules.model_trainer import ModelTrainer
 from modules.visualizer import Visualizer
-import modules.utils
+from modules.utils import save_visualization
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Model Evaluation Script")
@@ -28,10 +28,10 @@ if __name__ == "__main__":
     visualizer = Visualizer(data_loader.df_with_categorical, args.target_variable, args.n_samples, data_loader.feature_names)
     
     tsne_fig = visualizer.visualize_with_tsne(args.n_samples)
-    utils.save_visualization(tsne_fig, "tsne_plot.png")
+    save_visualization(tsne_fig, "tsne_plot.png")
 
     umap_fig = visualizer.visualize_with_umap(args.n_samples)
-    utils.save_visualization(umap_fig, "umap_plot.png") 
+    save_visualization(umap_fig, "umap_plot.png") 
 
     corr_fig = visualizer.visualize_correlations(args.n_samples)
-    utils.save_visualization(corr_fig, "correlation_plot.png")
+    save_visualization(corr_fig, "correlation_plot.png")
