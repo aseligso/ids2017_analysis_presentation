@@ -54,6 +54,7 @@ By addressing these challenges, the aim is to create a more robust, flexible, an
 
 This project is organized to analyze the IDS2017 dataset for network security, with a focus on modularity and command-line interface for flexibility.
 
+```
 project_root/
 ├── modules/
 │ ├── data_loader.py
@@ -68,7 +69,7 @@ project_root/
 ├── network_graph.html
 ├── README.md
 └── requirements.txt
-
+```
 
 ## Modules
 
