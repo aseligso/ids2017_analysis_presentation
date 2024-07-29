@@ -1,7 +1,7 @@
 # IDS2017 Dataset Analysis and Model Evaluation Tool
 
 ## Overview
-This project provides a comprehensive tool for analyzing the IDS2017 dataset and evaluating machine learning models for network intrusion detection. It combines the power of the IDS2017 dataset with advanced data analysis and visualization techniques to enhance network security analysis.
+This project provides a comprehensive tool for analyzing the IDS2017 dataset and evaluating machine learning models for network intrusion detection. It combines the power of the IDS2017 dataset with data analysis and visualization techniques to enhance network security analysis.
 
 ## IDS2017 Dataset and the Problem of Cyber Security Analysis
 The IDS2017 dataset, provided by the Canadian Institute for Cybersecurity (CIC), is an industry standard benchmark and resource for developing and evaluating network intrusion detection systems (IDS). Key features include:
@@ -165,6 +165,43 @@ This tool enhances network security analysis by:
 4. Comparing machine learning models to determine the most effective approach for network security
 
 By leveraging the IDS2017 dataset and analysis tool, researchers and practitioners can develop more robust and effective network intrusion detection systems.Future Work: Multimodality in Cyber Security and LLM Integration
+
+## Areas for Improvement
+
+### Parameterized Model Selection
+
+One key area for enhancement is the implementation of parameterized model selection via configuration. Currently, the model selection is hardcoded in the `model_trainer.py` module. Improving this would involve:
+
+1. Creating a configuration file (e.g., `config.yaml` or `config.json`) to specify which models to use and their hyperparameters.
+
+2. Modifying `model_trainer.py` to read from this configuration file, allowing for dynamic model selection and hyperparameter tuning without changing the code.
+
+3. Implementing a factory pattern or similar design to instantiate models based on the configuration.
+
+This improvement would offer several benefits:
+
+- Increased flexibility: Easily switch between different models or combinations of models without code changes.
+- Improved experimentation: Quickly test various model configurations by simply updating the config file.
+- Better reproducibility: Clearly document and version control the exact models and parameters used for each run.
+- Easier collaboration: Team members can share and replicate specific model configurations.
+
+Example configuration structure:
+
+```yaml
+models:
+  - name: RandomForest
+    params:
+      n_estimators: [50, 100, 150, 200]
+      max_depth: [10, 20, 30, None]
+  - name: SVM
+    params:
+      C: [0.1, 1, 10]
+      kernel: ['rbf', 'linear']
+  - name: GradientBoosting
+    params:
+      n_estimators: [100, 200, 300]
+      learning_rate: [0.01, 0.1, 0.3]
+```
 
 ## Future Work: Multimodality in Cyber Security and LLM Integration
 
