@@ -56,14 +56,14 @@ This project is organized to analyze the IDS2017 dataset for network security, w
 
 project_root/
 ├── modules/
-│   ├── data_loader.py
-│   ├── model_trainer.py
-│   ├── utils.py
-│   └── visualizer.py
+│ ├── data_loader.py
+│ ├── model_trainer.py
+│ ├── utils.py
+│ └── visualizer.py
 ├── results/
-│   ├── correlation_plot.png
-│   ├── tsne_plot.png
-│   └── umap_plot.png
+│ ├── correlation_plot.png
+│ ├── tsne_plot.png
+│ └── umap_plot.png
 ├── main.py
 ├── network_graph.html
 ├── README.md
